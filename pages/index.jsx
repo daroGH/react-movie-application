@@ -54,11 +54,16 @@ export default function Home() {
       </Head>
       <h1>Welcome to next </h1>
 
+      {/* Search and check the input and show loading spinning  */}
       <div>
-        <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+        <Search searchInput={searchInput} setSearchInput={setSearchInput} loading ={loading}/>
       </div>
-      {/* <MovieList movies={movies} loading={loading} /> */}
-      <MovieDetail />
+      <div>
+      {/* Show movie result and allow to click on the movie and retrive movieID */}
+      <MovieList movies={movies} loading={loading} input={searchInput} openMovie={setCurrentMovieID}/>
+
+      </div>
+      <MovieDetail currentMovieID={currentMovieID}/>
     </div>
   );
 }
