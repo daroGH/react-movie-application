@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-
+import { Box, Flex, Center, Stack } from "@chakra-ui/layout";
 import Head from "next/head";
 import Search from "../components/Home/Search";
 import MovieList from "../components/Home/MovieList";
 import MovieDetail from "../components/Home/MovieDetail";
+import SearchFilter from "../components/Home/SearchFilter";
 
 //API request by Title
 //http://www.omdbapi.com/?s=star&apikey=263d22d8
@@ -16,17 +17,17 @@ export default function Home() {
   const [movies, setMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("a");
   const [loading, setLoading] = useState(false);
-
+  const [byType, setByType] = useState("");
+  const [byYear, setByYear] = useState("");
   const [currentMovieID, setCurrentMovieID] = useState("");
 
   //useCallBack to encounter the changes in the useEffect function
   //to avoid infinite loop
   const getMovieRequest = async (searchInput) => {
-    console.log("searchinput", searchInput);
     setLoading(true);
     try {
       //url API from omdb that contain searchInput and send request
-      const url = `http://www.omdbapi.com/?s=${searchInput}&apikey=263d22d8`;
+      const url = `http://www.omdbapi.com/?s=${searchInput}&y=${byYear}&type=${byType}&apikey=263d22d8`;
       setLoading(true);
       const response = await fetch(url);
       const responseJson = await response.json();
@@ -44,6 +45,8 @@ export default function Home() {
   console.log("movies", movies);
 
   useEffect(() => {
+    // check if input is empty before send get request
+    if (searchInput === "") return;
     getMovieRequest(searchInput);
   }, [searchInput]);
 
@@ -52,18 +55,49 @@ export default function Home() {
       <Head>
         <title>Movie Application</title>
       </Head>
-      <h1>Welcome to next </h1>
 
-      {/* Search and check the input and show loading spinning  */}
-      <div>
-        <Search searchInput={searchInput} setSearchInput={setSearchInput} loading ={loading}/>
-      </div>
-      <div>
-      {/* Show movie result and allow to click on the movie and retrive movieID */}
-      <MovieList movies={movies} loading={loading} input={searchInput} openMovie={setCurrentMovieID}/>
+      {/* TODO: set Spinner from Chakra */}
+      <Box padding="4">
+        {/* Search and check the input and show loading spinning  */}
+        <div>
+          <Search
+            searchInput={searchInput}
+            setSearchInput={setSearchInput}
+            loading={loading}
+          />
+          {/* Filter function and retireve year and type  */}
+          <SearchFilter
+            filterByYear={(year) => setByYear(year)}
+            filterByType={(type) => setByType(type)}
+          />
+        </div>
 
-      </div>
-      <MovieDetail currentMovieID={currentMovieID}/>
+        {/* {if(searchInput !== "" || searchInput.lenght < 1 )} */}
+        {/* check if input empty else it will return movie list */}
+        {searchInput !== "" || searchInput.length < 2 ? (
+          <h2>No movie matched your search criteria</h2>
+        ) : (
+          ""
+        )}
+
+        <Flex w="50%">
+          <Box padding="3" width="40%">
+            {/* Show movie result and allow to click on the movie and retrive movieID */}
+            <MovieList
+              movies={movies}
+              loading={loading}
+              input={searchInput}
+              openMovie={setCurrentMovieID}
+            />
+          </Box>
+          <Box flex="1" width="60%">
+            {/* Get movie detail and allow user to add into their watchlist */}
+            <Center>
+              <MovieDetail currentMovieID={currentMovieID} />
+            </Center>
+          </Box>
+        </Flex>
+      </Box>
     </div>
   );
 }

@@ -1,20 +1,13 @@
 import React from "react";
 import { Image } from "@chakra-ui/image";
 //movielist function when user input and it will display the poster of the movie aside
-const MovieList = (input, movies,openMovie) => {
+const MovieList = ({ input, movies, openMovie }) => {
   //loading function call when the input is processing
- 
-  //check for false input
-  if (input.length < 1) {
-    return (
-      <h2 className="falseInput">No movie matched your search criteria</h2>
-    );
-  }
+  
   return (
     //{/* Onclick function to get movieID to set the currentMovieID (imdbID)*/}
-    //TODO: ckick on function to getcurrent movieID to setcurrentMovie
-    <div onClick={() => currentMovie(input.imdbID)}>
-    
+    //check on function to getcurrent movieID to setcurrentMovie
+    <div>
       {/* show image and movie title */}
       {/* fixed the image source */}
       {movies.map((movie, index) => (
@@ -23,7 +16,6 @@ const MovieList = (input, movies,openMovie) => {
           <h3 className="movieList-title">{movie.Title}</h3>
         </div>
       ))}
-
     </div>
   );
 };
