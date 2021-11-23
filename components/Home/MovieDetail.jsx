@@ -26,13 +26,14 @@ const MovieDetail = ({ currentMovie }) => {
 
   console.log("movieInfo", movieInfo);
   return (
-    
     <div>
       {/* TODO: Display movie description  */}
       {/* TODO: if there is no click it will show empty */}
 
       <Image src={movieInfo.Poster} alt="movie" />
-      
+      <Button colorScheme="blue" variant="outline">
+        Watchlist
+      </Button>
       <div>
         <h1>{movieInfo.Title}</h1>
         <h2>
@@ -43,7 +44,6 @@ const MovieDetail = ({ currentMovie }) => {
       <div>
         {movieInfo.Actors} {movieInfo.Plot}
       </div>
-      
     </div>
   );
 };
