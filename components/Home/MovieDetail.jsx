@@ -1,6 +1,14 @@
 import { Image } from "@chakra-ui/image";
 import React, { useState, useEffect } from "react";
-import { Button, Text, Badge, Flex } from "@chakra-ui/react";
+import {
+  Button,
+  Text,
+  Badge,
+  Flex,
+  Container,
+  Box,
+  Divider,
+} from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 
 // TODO: getmovieID and request API to get full movie description
@@ -33,12 +41,9 @@ const MovieDetail = ({ currentMovie }) => {
     <div>
       {/* TODO: Display movie description  */}
       {/* TODO: if there is no click it will show empty */}
-      <Flex>
-        <Image src={movieInfo.Poster} alt="movie" />
-        <Button leftIcon={<ViewIcon />} colorScheme="blue" variant="outline">
-          Watchlist
-        </Button>
-        <div>
+      <Flex w="100%" padding="5" justifyContent="space-between">
+        <Image w="20%" rounded="md" src={movieInfo.Poster} alt="movie" />
+        <Container pos="bottom">
           <Text fontSize="4xl" as="b">
             {movieInfo.Title}
           </Text>
@@ -50,13 +55,20 @@ const MovieDetail = ({ currentMovie }) => {
             {movieInfo.Genre}
             {movieInfo.Runtime}
           </Text>
-        </div>
+          <Text fontSize="md">{movieInfo.Actors}</Text>
+        </Container>
+        <Button leftIcon={<ViewIcon />} colorScheme="blue" variant="outline">
+          Watchlist
+        </Button>
       </Flex>
+      <Divider mt={5} mb={5}/>
 
-      <div>
-        <Text fontSize="md">{movieInfo.Actors}</Text>
-        <Text fontSize="md">{movieInfo.Plot}</Text>
-      </div>
+      <Container padding="4" maxW="container.lg">
+        <Box>
+          <Text fontSize="md">{movieInfo.Plot}</Text>
+        </Box>
+        <Divider mt={5} mb={5}/>
+      </Container>
     </div>
   );
 };

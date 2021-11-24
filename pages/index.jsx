@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Box, Stack, Flex, Spacer, Center } from "@chakra-ui/react";
+import { Box, Stack, Flex, Spacer, Center, Divider } from "@chakra-ui/react";
 import Head from "next/head";
 import Search from "../components/Home/Search";
 import MovieList from "../components/Home/MovieList";
@@ -66,9 +66,7 @@ export default function Home() {
 
       {/* TODO: set Spinner from Chakra */}
       <Box w="100%" padding="4">
-
         <Flex>
-  
           {/* Search and check the input and show loading spinning  */}
 
           <Box w="100%">
@@ -90,11 +88,12 @@ export default function Home() {
               />
             </Center>
           </Box>
-
         </Flex>
+        <Divider mt={5} mb={5}/>
 
         {/* {if(searchInput !== "" || searchInput.lenght < 1 )} */}
         {/* check if input empty else it will return movie list */}
+        {/* TODO: Always display */}
         {searchInput !== "" || searchInput.length < 2 ? (
           <h2>No movie matched your search criteria</h2>
         ) : (
@@ -102,7 +101,8 @@ export default function Home() {
         )}
 
         <Flex w="100%">
-          <Box padding="3" width="30%">
+          {/* Scroll */}
+          <Box padding="3" width="30%" overflowY="scroll">
             {/* Show movie result and allow to click on the movie and retrive movieID */}
             <MovieList
               movies={movies}
@@ -113,6 +113,7 @@ export default function Home() {
           </Box>
           <Box flex="1" width="100%">
             {/* Get movie detail and allow user to add into their watchlist */}
+            {/* TODO: If not Click from movieList it shows nothing */}
             <Center>
               <MovieDetail currentMovie={currentMovieID} />
             </Center>
