@@ -1,6 +1,7 @@
 import { Image } from "@chakra-ui/image";
 import React, { useState, useEffect } from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, Text, Badge, Flex } from "@chakra-ui/react";
+import { ViewIcon } from "@chakra-ui/icons";
 
 // TODO: getmovieID and request API to get full movie description
 const MovieDetail = ({ currentMovie }) => {
@@ -32,20 +33,29 @@ const MovieDetail = ({ currentMovie }) => {
     <div>
       {/* TODO: Display movie description  */}
       {/* TODO: if there is no click it will show empty */}
+      <Flex>
+        <Image src={movieInfo.Poster} alt="movie" />
+        <Button leftIcon={<ViewIcon />} colorScheme="blue" variant="outline">
+          Watchlist
+        </Button>
+        <div>
+          <Text fontSize="4xl" as="b">
+            {movieInfo.Title}
+          </Text>
+          <Text fontSize="2xl">
+            <Badge borderRadius="full" px="7">
+              {movieInfo.Rated}
+            </Badge>
+            {movieInfo.Year}
+            {movieInfo.Genre}
+            {movieInfo.Runtime}
+          </Text>
+        </div>
+      </Flex>
 
-      <Image src={movieInfo.Poster} alt="movie" />
-      <Button colorScheme="blue" variant="outline">
-        Watchlist
-      </Button>
       <div>
-        <h1>{movieInfo.Title}</h1>
-        <h2>
-          {movieInfo.Rated} {movieInfo.Year} {movieInfo.Genre}
-          {movieInfo.Runtime}
-        </h2>
-      </div>
-      <div>
-        {movieInfo.Actors} {movieInfo.Plot}
+        <Text fontSize="md">{movieInfo.Actors}</Text>
+        <Text fontSize="md">{movieInfo.Plot}</Text>
       </div>
     </div>
   );

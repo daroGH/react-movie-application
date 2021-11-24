@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Box, Flex, Center, Stack } from "@chakra-ui/layout";
+
+import { Box, Stack, Flex, Spacer, Center } from "@chakra-ui/react";
 import Head from "next/head";
 import Search from "../components/Home/Search";
 import MovieList from "../components/Home/MovieList";
@@ -29,6 +30,7 @@ export default function Home() {
       //url API from omdb that contain searchInput and send request
       // const url = `http://www.omdbapi.com/?s=${searchInput}&y=${byYear}&type=${byType}&apikey=263d22d8`;
       const url = `http://www.omdbapi.com/?s=${searchInput}&y=${byYear[0]}-${byYear[1]}&type=${byType}&apikey=263d22d8`;
+
       console.log("url:", url);
       setLoading(true);
       const response = await fetch(url);
@@ -63,22 +65,33 @@ export default function Home() {
       </Head>
 
       {/* TODO: set Spinner from Chakra */}
-      <Box padding="4">
-        {/* Search and check the input and show loading spinning  */}
-        <div>
-          <Search
-            searchInput={searchInput}
-            setSearchInput={setSearchInput}
-            loading={loading}
-          />
+      <Box w="100%" padding="4">
+
+        <Flex>
+  
+          {/* Search and check the input and show loading spinning  */}
+
+          <Box w="100%">
+            <Search
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
+              loading={loading}
+            />
+          </Box>
+          <Spacer />
           {/* Filter function and retireve year and type  */}
           {/* TODO:set type as "Empty" as ANY by defualt */}
-          <SearchFilter
-            filterByYear={(year) => setByYear(year)}
-            filterByType={(type) => setByType(type)}
-            
-          />
-        </div>
+          <Box w="100%">
+            <Center>
+              <SearchFilter
+                // TODO: Each adjustment it will change
+                filterByYear={(year) => setByYear(year)}
+                filterByType={(type) => setByType(type)}
+              />
+            </Center>
+          </Box>
+
+        </Flex>
 
         {/* {if(searchInput !== "" || searchInput.lenght < 1 )} */}
         {/* check if input empty else it will return movie list */}
@@ -88,20 +101,20 @@ export default function Home() {
           ""
         )}
 
-        <Flex w="50%">
-          <Box padding="3" width="40%">
+        <Flex w="100%">
+          <Box padding="3" width="30%">
             {/* Show movie result and allow to click on the movie and retrive movieID */}
             <MovieList
               movies={movies}
               loading={loading}
               input={searchInput}
-              openMovie={setCurrentMovieID}
+              openMovie={handleOpenMovie}
             />
           </Box>
-          <Box flex="1" width="60%">
+          <Box flex="1" width="100%">
             {/* Get movie detail and allow user to add into their watchlist */}
             <Center>
-              <MovieDetail currentMovieID={currentMovieID} />
+              <MovieDetail currentMovie={currentMovieID} />
             </Center>
           </Box>
         </Flex>

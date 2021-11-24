@@ -13,6 +13,7 @@ const SearchFilter = ({ filterByYear, filterByType }) => {
   const [typeValue, setTypeValue] = useState();
   return (
     <div>
+    
       <div>
         {/* Use rangeslider from Chakra UI */}
         <h2>YEAR</h2>
@@ -23,7 +24,7 @@ const SearchFilter = ({ filterByYear, filterByType }) => {
             max={2021}
             // TODO: check year return and year search Format is y=1980-2000
             defaultValue={[1980, 2000]}
-            width="20%"
+            width="100%"
             onChange={(value) => filterByYear(value)}
           >
             <RangeSliderTrack bg="lightblue">
@@ -46,6 +47,7 @@ const SearchFilter = ({ filterByYear, filterByType }) => {
           onChange={setTypeValue}
           onClick={() => filterByType(typeValue)}
         >
+          <h2>TYPE</h2>
           <Stack direction="row">
             <Radio value="">Any</Radio>
             <Radio value="movie">Movie</Radio>
