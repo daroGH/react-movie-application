@@ -15,10 +15,10 @@ export default function Home() {
   //Declare a new state variable useState hook to store Movie database,
   //user Input and loading screen while user is prompting input
   const [movies, setMovies] = useState([]);
-  const [searchInput, setSearchInput] = useState("a");
+  const [searchInput, setSearchInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [byType, setByType] = useState("");
-  const [byYear, setByYear] = useState("");
+  const [byYear, setByYear] = useState([1970, 2021]);
   const [currentMovieID, setCurrentMovieID] = useState("");
 
   //useCallBack to encounter the changes in the useEffect function
@@ -27,7 +27,9 @@ export default function Home() {
     setLoading(true);
     try {
       //url API from omdb that contain searchInput and send request
-      const url = `http://www.omdbapi.com/?s=${searchInput}&y=${byYear}&type=${byType}&apikey=263d22d8`;
+      // const url = `http://www.omdbapi.com/?s=${searchInput}&y=${byYear}&type=${byType}&apikey=263d22d8`;
+      const url = `http://www.omdbapi.com/?s=${searchInput}&y=${byYear[0]}-${byYear[1]}&type=${byType}&apikey=263d22d8`;
+      console.log("url:", url);
       setLoading(true);
       const response = await fetch(url);
       const responseJson = await response.json();
@@ -42,7 +44,11 @@ export default function Home() {
     }
   };
 
-  console.log("movies", movies);
+  console.log("year", byYear);
+  console.log("type", byType);
+  const handleOpenMovie = (movieId) => {
+    setCurrentMovieID(movieId);
+  };
 
   useEffect(() => {
     // check if input is empty before send get request
@@ -66,9 +72,11 @@ export default function Home() {
             loading={loading}
           />
           {/* Filter function and retireve year and type  */}
+          {/* TODO:set type as "Empty" as ANY by defualt */}
           <SearchFilter
             filterByYear={(year) => setByYear(year)}
             filterByType={(type) => setByType(type)}
+            
           />
         </div>
 

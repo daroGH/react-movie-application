@@ -9,7 +9,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 // Create Searchfilter that allow user to search by year and type
-const SearchFilter = ({ byYear, byType }) => {
+const SearchFilter = ({ filterByYear, filterByType }) => {
   const [typeValue, setTypeValue] = useState();
   return (
     <div>
@@ -24,7 +24,7 @@ const SearchFilter = ({ byYear, byType }) => {
             // TODO: check year return and year search Format is y=1980-2000
             defaultValue={[1980, 2000]}
             width="20%"
-            onChange={(value) => byYear(value)}
+            onChange={(value) => filterByYear(value)}
           >
             <RangeSliderTrack bg="lightblue">
               <RangeSliderFilledTrack />
@@ -37,11 +37,14 @@ const SearchFilter = ({ byYear, byType }) => {
       </div>
 
       <div>
-        {/* Radio from Chakra UI TODO: Pass the type into byType variable */}
+        {/* Radio from Chakra UI Pass the type into byType variable */}
         <RadioGroup
-          onChange={setTypeValue}
+          // TODO: Set defualt to empty but still undefine
+          // How to set one-clickt o change value
+
           value={typeValue}
-          // onClick={() => byType(typeValue)}
+          onChange={setTypeValue}
+          onClick={() => filterByType(typeValue)}
         >
           <Stack direction="row">
             <Radio value="">Any</Radio>

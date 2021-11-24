@@ -1,5 +1,6 @@
-import { Flex, Spacer, Image, Button } from "@chakra-ui/image";
+import { Image } from "@chakra-ui/image";
 import React, { useState, useEffect } from "react";
+import { Button } from "@chakra-ui/react";
 
 // TODO: getmovieID and request API to get full movie description
 const MovieDetail = ({ currentMovie }) => {
@@ -25,6 +26,8 @@ const MovieDetail = ({ currentMovie }) => {
   }, [currentMovie]);
 
   console.log("movieInfo", movieInfo);
+
+  if (!movieInfo) return <p>Loading</p>;
   return (
     <div>
       {/* TODO: Display movie description  */}
