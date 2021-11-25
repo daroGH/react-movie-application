@@ -5,12 +5,16 @@ import { Flex, Box, Center, Text, Divider } from "@chakra-ui/react";
 const MovieList = ({ input, movies, openMovie }) => {
   //loading function call when the input is processing
 
+  // No movie matched your search criteria
+  if (movies.length < 1) {
+    return <Text>No result</Text>;
+  }
   return (
     //{/* Onclick function to get movieID to set the currentMovieID (imdbID)*/}
     //check on function to getcurrent movieID to setcurrentMovie
-    <div>
+    <div >
       {/* show image and movie title */}
-      {/* fixed the image source */}
+      {/* fixed the fail image source */}
       {/* Add alternative Image when there is no image */}
       {/* TODO:Add Scroll bar  */}
       {movies.map((movie, index) => (
@@ -28,16 +32,18 @@ const MovieList = ({ input, movies, openMovie }) => {
               transition: "transform .1s",
             }}
           >
-            <Image
-              boxSize="150px"
-              boarderRadius="full"
-              src={movie.Poster}
-              alt="movie"
-              rounded="md"
-              fallbackSrc="https://via.placeholder.com/150"
-            />
+            <Box>
+              <Image
+                boxSize="180px"
+                src={movie.Poster}
+                alt="movie"
+                rounded="md"
+                fallbackSrc="https://via.placeholder.com/300"
+              />
+            </Box>
+
             <Center>
-              <Text spacing={10} fontSize="lg">
+              <Text ml={3} spacing={10} fontSize="lg">
                 {movie.Title}
               </Text>
             </Center>

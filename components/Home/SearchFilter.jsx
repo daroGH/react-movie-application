@@ -25,7 +25,7 @@ const SearchFilter = ({ filterByYear, filterByType }) => {
               min={1970}
               max={2021}
               //check year return and year search Format is y=1980-2000
-              defaultValue={[1980, 2000]}
+              defaultValue={[1980, 2021]}
               width="100%"
               onChange={(value) => filterByYear(value)}
             >
@@ -42,12 +42,8 @@ const SearchFilter = ({ filterByYear, filterByType }) => {
         <Box w="50%" ml={10} mr={2}>
           {/* Radio from Chakra UI Pass the type into byType variable */}
           <RadioGroup
-            // Set defualt to empty but still undefine
-            // TODO: How to set one-clickt o change value
-
             value={typeValue}
-            onChange={setTypeValue}
-            onClick={() => filterByType(typeValue)}
+            onChange={(value) => filterByType(value)}
           >
             <h2>TYPE</h2>
             <Stack direction="row">

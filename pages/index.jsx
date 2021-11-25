@@ -11,7 +11,8 @@ import SearchFilter from "../components/Home/SearchFilter";
 //http://www.omdbapi.com/?s=star&apikey=263d22d8
 //API request by IMDB ID
 //http://www.omdbapi.com/?i=tt3896198&apikey=59ab01de
-
+// TODO: Press home to refresh the page
+// TODO: press enter to re input the prompt
 export default function Home() {
   //Declare a new state variable useState hook to store Movie database,
   //user Input and loading screen while user is prompting input
@@ -35,7 +36,7 @@ export default function Home() {
       setLoading(true);
       const response = await fetch(url);
       const responseJson = await response.json();
-      
+
       //check if the request successful
       if (responseJson.Search) {
         setMovies(responseJson.Search);
@@ -48,8 +49,6 @@ export default function Home() {
     console.log("movies:", movies);
   };
 
-  console.log("year", byYear);
-  console.log("type", byType);
   const handleOpenMovie = (movieId) => {
     setCurrentMovieID(movieId);
   };
@@ -67,11 +66,12 @@ export default function Home() {
       </Head>
 
       {/* TODO: Loading set Spinner from Chakra */}
-      <Box w="100%" p="4">
+      <Box w="100%" h="50%" p="4">
         <Flex>
           {/* Search and check the input and show loading spinning  */}
 
           <Box w="40%">
+            {/* TODO: when there is any changes */}
             <Search
               searchInput={searchInput}
               setSearchInput={setSearchInput}
@@ -80,10 +80,9 @@ export default function Home() {
           </Box>
           <Spacer />
           {/* Filter function and retireve year and type  */}
-          {/* TODO:set type as "Empty" as ANY by defualt */}
           <Box w="60%">
             <SearchFilter
-              // TODO: Each adjustment it will change
+              // TODO: Each adjustment it will change search result
               filterByYear={(year) => setByYear(year)}
               filterByType={(type) => setByType(type)}
             />
@@ -93,31 +92,36 @@ export default function Home() {
 
         {/* {if(searchInput !== "" || searchInput.lenght < 1 )} */}
         {/* check if input empty else it will return movie list */}
-        {/* TODO: Always display */}
-        {searchInput !== "" || searchInput.length < 2 ? (
+        {/* Always display */}
+        {/* {searchInput !== "" || searchInput.length < 2 ? (
           <h2>No movie matched your search criteria</h2>
         ) : (
           ""
-        )}
+        )} */}
 
         <Flex w="100%">
-          {/* Scroll */}
-          <Box p="3" w="30%" overflowY="scroll">
+          {/* TODO: Scroll */}
+
+          <Box p="3" w="30%" style={{overflowY: 'scroll'}}>
             {/* Show movie result and allow to click on the movie and retrive movieID */}
-            {movies.length === 0?(<h2>No movie matched your search criteria</h2>):(<MovieList
+
+            <MovieList
               movies={movies}
               loading={loading}
               input={searchInput}
               openMovie={handleOpenMovie}
-            />)}
-            
+            />
           </Box>
+
           <Box flex="1" w="100%">
             {/* Get movie detail and allow user to add into their watchlist */}
             {/* If not Click from movieList it shows nothing */}
             <Center>
-            {currentMovieID !== "" ?(<MovieDetail currentMovie={currentMovieID} />):("")}
-              
+              {currentMovieID !== "" ? (
+                <MovieDetail currentMovie={currentMovieID} />
+              ) : (
+                ""
+              )}
             </Center>
           </Box>
         </Flex>

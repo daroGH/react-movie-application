@@ -13,9 +13,10 @@ import {
 import { ViewIcon } from "@chakra-ui/icons";
 import WatchList from "../../pages/watchlist";
 
-// TODO: getmovieID and request API to get full movie description
+// getmovieID and request API to get full movie description
 const MovieDetail = ({ currentMovie, saveWatchList }) => {
   const [movieInfo, setMovieInfo] = useState({});
+  const [rating, setRating] = useState({});
 
   const getMovieDetailRequest = async (movieID) => {
     try {
@@ -32,17 +33,21 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
     const getMovieDetail = async () => {
       const responseJson = await getMovieDetailRequest(currentMovie);
       setMovieInfo(responseJson);
+      setRating(responseJson.Ratings);
     };
     getMovieDetail();
   }, [currentMovie]);
 
+  if (!movieInfo) return <p>Loading</p>;
+
   console.log("movieInfo", movieInfo);
 
-  if (!movieInfo) return <p>Loading</p>;
+  console.log("Source:", rating.Value);
+  // console.log("Rating:", rating[0].Value);
   return (
     <div>
       {/* Display movie description  */}
-      {/* TODO: if there is no click it will show empty */}
+      {/* if there is no click it will show empty */}
       <Flex w="100%" padding="5" justifyContent="space-between">
         <Image w="20%" rounded="md" src={movieInfo.Poster} alt="movie" />
         <Container>
@@ -66,7 +71,8 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
           leftIcon={<ViewIcon />}
           colorScheme="blue"
           variant="outline"
-          onClick={() => saveWatchList(movieInfo.Title)}
+          onClick={(movieInfo) => saveWatchList(movieInfo)}
+          p="20px 30px"
         >
           Watchlist
         </Button>
@@ -79,6 +85,10 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
         </Box>
         <Divider mt={5} mb={5} />
         {/* TODO: Rating */}
+        {/* PrintArray */}
+        <Box>
+
+        </Box>
       </Container>
     </div>
   );
