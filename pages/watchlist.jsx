@@ -28,7 +28,6 @@ export default function WatchList() {
           </Box>
           <Box flex="1" w="100%">
             {/* Get movie detail and allow user to add into their watchlist */}
-            {/* If not Click from movieList it shows nothing */}
             <Center>
               <MovieDetail
                 currentMovie={currentMovieID}

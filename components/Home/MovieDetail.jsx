@@ -8,7 +8,7 @@ import {
   Container,
   Box,
   Divider,
-  HStack,
+  Center,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 import WatchList from "../../pages/watchlist";
@@ -17,6 +17,7 @@ import WatchList from "../../pages/watchlist";
 const MovieDetail = ({ currentMovie, saveWatchList }) => {
   const [movieInfo, setMovieInfo] = useState({});
   const [rating, setRating] = useState({});
+  const block = 100 / rating.length;
 
   const getMovieDetailRequest = async (movieID) => {
     try {
@@ -55,16 +56,20 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
             {movieInfo.Title}
           </Text>
 
-          <Text fontSize="1xl">
-            <Badge borderRadius="full" px="7">
-              {movieInfo.Rated}
-            </Badge>
-            {movieInfo.Year}
-            {movieInfo.Genre}
-            {movieInfo.Runtime}
-          </Text>
+          <Flex>
+            <Text fontSize="1xl">
+              <Badge borderRadius="full" px="7">
+                {movieInfo.Rated}
+              </Badge>
+            </Text>
+            <Text ml={3}>{movieInfo.Year}</Text>
+            <Text ml={3}>{movieInfo.Genre}</Text>
+            <Text ml={3}>{movieInfo.Runtime}</Text>
+          </Flex>
 
-          <Text fontSize="md">{movieInfo.Actors}</Text>
+          <Text mt={3} fontSize="md">
+            {movieInfo.Actors}
+          </Text>
         </Container>
         {/* TODO: Save to watchlist */}
         <Button
@@ -84,12 +89,23 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
           <Text fontSize="md">{movieInfo.Plot}</Text>
         </Box>
         <Divider mt={5} mb={5} />
-        {/* TODO: Rating */}
+        {/* Rating */}
         {/* PrintArray */}
-        <Box>
 
-        </Box>
+        <Flex w="100%">
+          {rating.length > 0 ? (
+            rating.map((data, index) => (
+              <Box w="33.33%" key={index}>
+                <Center>{data.Value}</Center>
+                <Center>{data.Source}</Center>
+              </Box>
+            ))
+          ) : (
+            <div>No rating</div>
+          )}
+        </Flex>
       </Container>
+      <Divider mt={5} mb={5} />
     </div>
   );
 };

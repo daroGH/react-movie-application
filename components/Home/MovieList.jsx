@@ -9,10 +9,11 @@ const MovieList = ({ input, movies, openMovie }) => {
   if (movies.length < 1) {
     return <Text>No result</Text>;
   }
+  console.log("length", movies.length);
   return (
     //{/* Onclick function to get movieID to set the currentMovieID (imdbID)*/}
     //check on function to getcurrent movieID to setcurrentMovie
-    <div >
+    <div>
       {/* show image and movie title */}
       {/* fixed the fail image source */}
       {/* Add alternative Image when there is no image */}
@@ -22,6 +23,7 @@ const MovieList = ({ input, movies, openMovie }) => {
           key={index}
           cursor="pointer"
           onClick={() => openMovie(movie.imdbID)}
+          
         >
           <Flex
             _hover={{
@@ -30,20 +32,27 @@ const MovieList = ({ input, movies, openMovie }) => {
               background: "lightgray",
               transform: "scale(1.1)",
               transition: "transform .1s",
+        
+              
             }}
           >
-            <Box>
+            <Box boxSize="100px">
+            
               <Image
-                boxSize="180px"
+                
+                w="80px"
+                h="80px"
+                mt={2}
                 src={movie.Poster}
                 alt="movie"
                 rounded="md"
                 fallbackSrc="https://via.placeholder.com/300"
               />
+            
             </Box>
 
             <Center>
-              <Text ml={3} spacing={10} fontSize="lg">
+              <Text ml={2} spacing={10} fontSize="lg">
                 {movie.Title}
               </Text>
             </Center>

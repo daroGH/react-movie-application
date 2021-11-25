@@ -46,7 +46,6 @@ export default function Home() {
       console.log(error);
       setLoading(false);
     }
-    console.log("movies:", movies);
   };
 
   const handleOpenMovie = (movieId) => {
@@ -82,7 +81,7 @@ export default function Home() {
           {/* Filter function and retireve year and type  */}
           <Box w="60%">
             <SearchFilter
-              // TODO: Each adjustment it will change search result
+              
               filterByYear={(year) => setByYear(year)}
               filterByType={(type) => setByType(type)}
             />
