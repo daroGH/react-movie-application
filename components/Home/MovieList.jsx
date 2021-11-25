@@ -11,7 +11,7 @@ const MovieList = ({ input, movies, openMovie }) => {
     <div>
       {/* show image and movie title */}
       {/* fixed the image source */}
-      {/* TODO:Add alternative Image when there is no image */}
+      {/* Add alternative Image when there is no image */}
       {/* TODO:Add Scroll bar  */}
       {movies.map((movie, index) => (
         <div

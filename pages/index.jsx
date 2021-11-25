@@ -35,6 +35,7 @@ export default function Home() {
       setLoading(true);
       const response = await fetch(url);
       const responseJson = await response.json();
+      
       //check if the request successful
       if (responseJson.Search) {
         setMovies(responseJson.Search);
@@ -44,6 +45,7 @@ export default function Home() {
       console.log(error);
       setLoading(false);
     }
+    console.log("movies:", movies);
   };
 
   console.log("year", byYear);
@@ -64,12 +66,12 @@ export default function Home() {
         <title>Movie Application</title>
       </Head>
 
-      {/* TODO: set Spinner from Chakra */}
-      <Box w="100%" padding="4">
+      {/* TODO: Loading set Spinner from Chakra */}
+      <Box w="100%" p="4">
         <Flex>
           {/* Search and check the input and show loading spinning  */}
 
-          <Box w="100%">
+          <Box w="40%">
             <Search
               searchInput={searchInput}
               setSearchInput={setSearchInput}
@@ -79,17 +81,15 @@ export default function Home() {
           <Spacer />
           {/* Filter function and retireve year and type  */}
           {/* TODO:set type as "Empty" as ANY by defualt */}
-          <Box w="100%">
-            <Center>
-              <SearchFilter
-                // TODO: Each adjustment it will change
-                filterByYear={(year) => setByYear(year)}
-                filterByType={(type) => setByType(type)}
-              />
-            </Center>
+          <Box w="60%">
+            <SearchFilter
+              // TODO: Each adjustment it will change
+              filterByYear={(year) => setByYear(year)}
+              filterByType={(type) => setByType(type)}
+            />
           </Box>
         </Flex>
-        <Divider mt={5} mb={5}/>
+        <Divider mt={5} mb={5} />
 
         {/* {if(searchInput !== "" || searchInput.lenght < 1 )} */}
         {/* check if input empty else it will return movie list */}
@@ -102,20 +102,22 @@ export default function Home() {
 
         <Flex w="100%">
           {/* Scroll */}
-          <Box padding="3" width="30%" overflowY="scroll">
+          <Box p="3" w="30%" overflowY="scroll">
             {/* Show movie result and allow to click on the movie and retrive movieID */}
-            <MovieList
+            {movies.length === 0?(<h2>No movie matched your search criteria</h2>):(<MovieList
               movies={movies}
               loading={loading}
               input={searchInput}
               openMovie={handleOpenMovie}
-            />
+            />)}
+            
           </Box>
-          <Box flex="1" width="100%">
+          <Box flex="1" w="100%">
             {/* Get movie detail and allow user to add into their watchlist */}
-            {/* TODO: If not Click from movieList it shows nothing */}
+            {/* If not Click from movieList it shows nothing */}
             <Center>
-              <MovieDetail currentMovie={currentMovieID} />
+            {currentMovieID !== "" ?(<MovieDetail currentMovie={currentMovieID} />):("")}
+              
             </Center>
           </Box>
         </Flex>

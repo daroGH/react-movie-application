@@ -11,7 +11,7 @@ const Search = (input) => {
         placeholder="Please type to search..."
         variant="flushed"
         size="lg"
-        width="90%"
+        width="80%"
       />
     </div>
   );

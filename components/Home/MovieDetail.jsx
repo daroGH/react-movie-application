@@ -8,11 +8,13 @@ import {
   Container,
   Box,
   Divider,
+  HStack,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
+import WatchList from "../../pages/watchlist";
 
 // TODO: getmovieID and request API to get full movie description
-const MovieDetail = ({ currentMovie }) => {
+const MovieDetail = ({ currentMovie, saveWatchList }) => {
   const [movieInfo, setMovieInfo] = useState({});
 
   const getMovieDetailRequest = async (movieID) => {
@@ -39,15 +41,16 @@ const MovieDetail = ({ currentMovie }) => {
   if (!movieInfo) return <p>Loading</p>;
   return (
     <div>
-      {/* TODO: Display movie description  */}
+      {/* Display movie description  */}
       {/* TODO: if there is no click it will show empty */}
       <Flex w="100%" padding="5" justifyContent="space-between">
         <Image w="20%" rounded="md" src={movieInfo.Poster} alt="movie" />
-        <Container pos="bottom">
+        <Container>
           <Text fontSize="4xl" as="b">
             {movieInfo.Title}
           </Text>
-          <Text fontSize="2xl">
+
+          <Text fontSize="1xl">
             <Badge borderRadius="full" px="7">
               {movieInfo.Rated}
             </Badge>
@@ -55,19 +58,27 @@ const MovieDetail = ({ currentMovie }) => {
             {movieInfo.Genre}
             {movieInfo.Runtime}
           </Text>
+
           <Text fontSize="md">{movieInfo.Actors}</Text>
         </Container>
-        <Button leftIcon={<ViewIcon />} colorScheme="blue" variant="outline">
+        {/* TODO: Save to watchlist */}
+        <Button
+          leftIcon={<ViewIcon />}
+          colorScheme="blue"
+          variant="outline"
+          onClick={() => saveWatchList(movieInfo.Title)}
+        >
           Watchlist
         </Button>
       </Flex>
-      <Divider mt={5} mb={5}/>
+      <Divider mt={5} mb={5} />
 
       <Container padding="4" maxW="container.lg">
         <Box>
           <Text fontSize="md">{movieInfo.Plot}</Text>
         </Box>
-        <Divider mt={5} mb={5}/>
+        <Divider mt={5} mb={5} />
+        {/* TODO: Rating */}
       </Container>
     </div>
   );
