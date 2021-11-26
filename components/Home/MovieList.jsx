@@ -32,7 +32,6 @@ const MovieList = ({ input, movies, openMovie }) => {
               background: "lightgray",
               transform: "scale(1.1)",
               transition: "transform .1s",
-        
               
             }}
           >
@@ -48,7 +47,6 @@ const MovieList = ({ input, movies, openMovie }) => {
                 rounded="md"
                 fallbackSrc="https://via.placeholder.com/300"
               />
-            
             </Box>
 
             <Center>

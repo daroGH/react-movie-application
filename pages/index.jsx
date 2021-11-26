@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import { Box, Stack, Flex, Spacer, Center, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  Stack,
+  Flex,
+  Spacer,
+  Center,
+  Divider,
+  Spinner,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import Search from "../components/Home/Search";
 import MovieList from "../components/Home/MovieList";
@@ -11,8 +19,9 @@ import SearchFilter from "../components/Home/SearchFilter";
 //http://www.omdbapi.com/?s=star&apikey=263d22d8
 //API request by IMDB ID
 //http://www.omdbapi.com/?i=tt3896198&apikey=59ab01de
+
 // TODO: Press home to refresh the page
-// TODO: press enter to re input the prompt
+
 export default function Home() {
   //Declare a new state variable useState hook to store Movie database,
   //user Input and loading screen while user is prompting input
@@ -22,6 +31,7 @@ export default function Home() {
   const [byType, setByType] = useState("");
   const [byYear, setByYear] = useState([1970, 2021]);
   const [currentMovieID, setCurrentMovieID] = useState("");
+  const [watchList, setWatchList] = useState([]);
 
   //useCallBack to encounter the changes in the useEffect function
   //to avoid infinite loop
@@ -42,6 +52,7 @@ export default function Home() {
         setMovies(responseJson.Search);
         setLoading(false);
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -50,6 +61,18 @@ export default function Home() {
 
   const handleOpenMovie = (movieId) => {
     setCurrentMovieID(movieId);
+  };
+
+  const handleWatchList = (currentMovieID) => {
+    const checkList = watchList.filter(
+      (list) => list.Title === currentMovieID.Title
+    );
+
+    if (checkList) {
+      const newWatchListMovie = [...watchList, currentMovieID];
+      setWatchList(newWatchListMovie);
+    }
+    console.log("watchList", checkList);
   };
 
   useEffect(() => {
@@ -64,7 +87,7 @@ export default function Home() {
         <title>Movie Application</title>
       </Head>
 
-      {/* TODO: Loading set Spinner from Chakra */}
+      
       <Box w="100%" h="50%" p="4">
         <Flex>
           {/* Search and check the input and show loading spinning  */}
@@ -81,7 +104,6 @@ export default function Home() {
           {/* Filter function and retireve year and type  */}
           <Box w="60%">
             <SearchFilter
-              
               filterByYear={(year) => setByYear(year)}
               filterByType={(type) => setByType(type)}
             />
@@ -99,17 +121,27 @@ export default function Home() {
         )} */}
 
         <Flex w="100%">
-          {/* TODO: Scroll */}
-
-          <Box p="3" w="30%" style={{overflowY: 'scroll'}}>
+          <Box p="3" w="30%" style={{ overflowY: "scroll" }}>
             {/* Show movie result and allow to click on the movie and retrive movieID */}
-
-            <MovieList
-              movies={movies}
-              loading={loading}
-              input={searchInput}
-              openMovie={handleOpenMovie}
-            />
+            {loading ? (
+              <Center>
+              {/*when Loading is true set Spinner from Chakra */}
+                <Spinner
+                  color="blue.500"
+                  size="xl"
+                  thickness="2px"
+                  speed="0.5s"
+                  
+                />
+              </Center>
+            ) : (
+              <MovieList
+                movies={movies}
+                loading={loading}
+                input={searchInput}
+                openMovie={handleOpenMovie}
+              />
+            )}
           </Box>
 
           <Box flex="1" w="100%">
@@ -117,7 +149,10 @@ export default function Home() {
             {/* If not Click from movieList it shows nothing */}
             <Center>
               {currentMovieID !== "" ? (
-                <MovieDetail currentMovie={currentMovieID} />
+                <MovieDetail
+                  currentMovie={currentMovieID}
+                  saveWatchList={handleWatchList}
+                />
               ) : (
                 ""
               )}

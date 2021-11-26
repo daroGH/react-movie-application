@@ -18,6 +18,7 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
   const [movieInfo, setMovieInfo] = useState({});
   const [rating, setRating] = useState({});
   const block = 100 / rating.length;
+  console.log("block", block);
 
   const getMovieDetailRequest = async (movieID) => {
     try {
@@ -43,7 +44,6 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
 
   console.log("movieInfo", movieInfo);
 
-  console.log("Source:", rating.Value);
   // console.log("Rating:", rating[0].Value);
   return (
     <div>
@@ -71,12 +71,12 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
             {movieInfo.Actors}
           </Text>
         </Container>
-        {/* TODO: Save to watchlist */}
+        {/* Save to watchlist */}
         <Button
           leftIcon={<ViewIcon />}
           colorScheme="blue"
           variant="outline"
-          onClick={(movieInfo) => saveWatchList(movieInfo)}
+          onClick={() => saveWatchList(movieInfo)}
           p="20px 30px"
         >
           Watchlist
@@ -84,9 +84,9 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
       </Flex>
       <Divider mt={5} mb={5} />
 
-      <Container padding="4" maxW="container.lg">
+      <Box padding="4" maxW="container.lg">
         <Box>
-          <Text fontSize="md">{movieInfo.Plot}</Text>
+          <Center fontSize="md">{movieInfo.Plot}</Center>
         </Box>
         <Divider mt={5} mb={5} />
         {/* Rating */}
@@ -104,7 +104,7 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
             <div>No rating</div>
           )}
         </Flex>
-      </Container>
+      </Box>
       <Divider mt={5} mb={5} />
     </div>
   );
