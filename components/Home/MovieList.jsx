@@ -7,9 +7,8 @@ const MovieList = ({ input, movies, openMovie }) => {
 
   // No movie matched your search criteria
   if (movies.length < 1) {
-    return <Text>No result</Text>;
+    return <Text>No Result !</Text>;
   }
-  console.log("length", movies.length);
   return (
     //{/* Onclick function to get movieID to set the currentMovieID (imdbID)*/}
     //check on function to getcurrent movieID to setcurrentMovie
@@ -17,7 +16,6 @@ const MovieList = ({ input, movies, openMovie }) => {
       {/* show image and movie title */}
       {/* fixed the fail image source */}
       {/* Add alternative Image when there is no image */}
-      {/* TODO:Add Scroll bar  */}
       {movies.map((movie, index) => (
         <div
           key={index}

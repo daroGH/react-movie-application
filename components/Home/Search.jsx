@@ -6,7 +6,8 @@ const Search = (input) => {
   // TODO: press enter to submit the form
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault();
+      console.log("enter");
+      
     }
   };
   return (

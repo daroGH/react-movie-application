@@ -17,8 +17,7 @@ import WatchList from "../../pages/watchlist";
 const MovieDetail = ({ currentMovie, saveWatchList }) => {
   const [movieInfo, setMovieInfo] = useState({});
   const [rating, setRating] = useState({});
-  const block = 100 / rating.length;
-  console.log("block", block);
+
 
   const getMovieDetailRequest = async (movieID) => {
     try {
@@ -44,13 +43,18 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
 
   console.log("movieInfo", movieInfo);
 
-  // console.log("Rating:", rating[0].Value);
   return (
     <div>
       {/* Display movie description  */}
       {/* if there is no click it will show empty */}
       <Flex w="100%" padding="5" justifyContent="space-between">
-        <Image w="20%" rounded="md" src={movieInfo.Poster} alt="movie" />
+        <Image
+          w="20%"
+          rounded="md"
+          src={movieInfo.Poster}
+          alt="movie"
+          fallbackSrc="https://via.placeholder.com/300"
+        />
         <Container>
           <Text fontSize="4xl" as="b">
             {movieInfo.Title}
@@ -77,6 +81,7 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
           colorScheme="blue"
           variant="outline"
           onClick={() => saveWatchList(movieInfo)}
+          
           p="20px 30px"
         >
           Watchlist
@@ -89,19 +94,24 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
           <Center fontSize="md">{movieInfo.Plot}</Center>
         </Box>
         <Divider mt={5} mb={5} />
+
         {/* Rating */}
         {/* PrintArray */}
-
         <Flex w="100%">
+      {/* calculation to ensure that the rating system will dynamically 
+      display middle base on number of source */}
+      {/* Inline css with calculate format */}
           {rating.length > 0 ? (
             rating.map((data, index) => (
-              <Box w="33.33%" key={index}>
+              <Box style={{width:`calc(100%/${rating.length})`}} key={index}>
                 <Center>{data.Value}</Center>
                 <Center>{data.Source}</Center>
               </Box>
             ))
           ) : (
+            <Center>
             <div>No rating</div>
+            </Center>
           )}
         </Flex>
       </Box>

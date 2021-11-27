@@ -63,17 +63,32 @@ export default function Home() {
     setCurrentMovieID(movieId);
   };
 
+  // Function to add to watchList
   const handleWatchList = (currentMovieID) => {
-    const checkList = watchList.filter(
-      (list) => list.Title === currentMovieID.Title
-    );
-
-    if (checkList) {
-      const newWatchListMovie = [...watchList, currentMovieID];
+    const newWatchListMovie = [...watchList, currentMovieID];
+    if (watchList.length < 1) {
       setWatchList(newWatchListMovie);
+    } else {
+      // TODO: To get it to check all the list
+      const checkDuplicate = watchList.map((id) => {
+        // Condition is correct but the for loop is
+        if (id.Title !== currentMovieID.Title) {
+          console.log("No Duplicate");
+        } else {
+          // setWatchList(newWatchListMovie);
+          console.log(" Duplicate");
+        }
+      });
     }
-    console.log("watchList", checkList);
   };
+  // Function to add to watchList
+  const removeWatchList = (currentMovieID) => {
+    const newWatchListMovie = watchList.filter(
+      (id) => id.Title !== currentMovieID.Title
+    );
+    setWatchList(newWatchListMovie);
+  };
+  console.log("watchList", watchList);
 
   useEffect(() => {
     // check if input is empty before send get request
@@ -87,7 +102,6 @@ export default function Home() {
         <title>Movie Application</title>
       </Head>
 
-      
       <Box w="100%" h="50%" p="4">
         <Flex>
           {/* Search and check the input and show loading spinning  */}
@@ -121,17 +135,16 @@ export default function Home() {
         )} */}
 
         <Flex w="100%">
-          <Box p="3" w="30%" style={{ overflowY: "scroll" }}>
+          <Box p="3" w="30%" h="700" overflowY="auto">
             {/* Show movie result and allow to click on the movie and retrive movieID */}
             {loading ? (
               <Center>
-              {/*when Loading is true set Spinner from Chakra */}
+                {/*when Loading is true set Spinner from Chakra */}
                 <Spinner
                   color="blue.500"
                   size="xl"
                   thickness="2px"
                   speed="0.5s"
-                  
                 />
               </Center>
             ) : (
