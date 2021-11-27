@@ -29,7 +29,7 @@ export default function Home() {
   const [searchInput, setSearchInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [byType, setByType] = useState("");
-  const [byYear, setByYear] = useState([1970, 2021]);
+  const [byYear, setByYear] = useState("");
   const [currentMovieID, setCurrentMovieID] = useState("");
   const [watchList, setWatchList] = useState([]);
 
@@ -40,7 +40,7 @@ export default function Home() {
     try {
       //url API from omdb that contain searchInput and send request
       // const url = `http://www.omdbapi.com/?s=${searchInput}&y=${byYear}&type=${byType}&apikey=263d22d8`;
-      const url = `http://www.omdbapi.com/?s=${searchInput}&y=${byYear[0]}-${byYear[1]}&type=${byType}&apikey=263d22d8`;
+      const url = `http://www.omdbapi.com/?s=${searchInput}&y=${byYear}&type=${byType}&apikey=263d22d8`;
 
       console.log("url:", url);
       setLoading(true);

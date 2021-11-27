@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import {
-  RangeSlider,
-  RangeSliderTrack,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
   Radio,
   RadioGroup,
   Stack,
@@ -21,21 +21,22 @@ const SearchFilter = ({ filterByYear, filterByType }) => {
           <h2>YEAR</h2>
           <Stack direction="row">
             <h3>1970</h3>
-            <RangeSlider
+            <Slider
               min={1970}
               max={2021}
               //check year return and year search Format is y=1980-2000
-              defaultValue={[1980, 2021]}
+              defaultValue={2021}
               width="100%"
               onChange={(value) => filterByYear(value)}
             >
-              <RangeSliderTrack bg="lightblue">
-                <RangeSliderFilledTrack />
-              </RangeSliderTrack>
-              <RangeSliderThumb index={0} />
-              <RangeSliderThumb index={1} />
-            </RangeSlider>
+              <SliderTrack bg="lightblue">
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb index={0} />
+              <SliderThumb index={1} />
+            </Slider>
             <h3>2021</h3>
+
           </Stack>
         </Box>
 
