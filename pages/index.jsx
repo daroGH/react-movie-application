@@ -73,9 +73,11 @@ export default function Home() {
       const checkDuplicate = watchList.map((id) => {
         // Condition is correct but the for loop is
         if (id.Title !== currentMovieID.Title) {
+          
           console.log("No Duplicate");
         } else {
           // setWatchList(newWatchListMovie);
+          // show the added button 
           console.log(" Duplicate");
         }
       });
@@ -89,6 +91,7 @@ export default function Home() {
     setWatchList(newWatchListMovie);
   };
   console.log("watchList", watchList);
+
 
   useEffect(() => {
     // check if input is empty before send get request
@@ -125,14 +128,6 @@ export default function Home() {
         </Flex>
         <Divider mt={5} mb={5} />
 
-        {/* {if(searchInput !== "" || searchInput.lenght < 1 )} */}
-        {/* check if input empty else it will return movie list */}
-        {/* Always display */}
-        {/* {searchInput !== "" || searchInput.length < 2 ? (
-          <h2>No movie matched your search criteria</h2>
-        ) : (
-          ""
-        )} */}
 
         <Flex w="100%">
           <Box p="3" w="30%" h="700" overflowY="auto">
@@ -165,6 +160,7 @@ export default function Home() {
                 <MovieDetail
                   currentMovie={currentMovieID}
                   saveWatchList={handleWatchList}
+                  removeWatchList={removeWatchList}
                 />
               ) : (
                 ""

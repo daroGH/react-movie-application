@@ -10,14 +10,18 @@ import {
   Divider,
   Center,
 } from "@chakra-ui/react";
-import { ViewIcon } from "@chakra-ui/icons";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import WatchList from "../../pages/watchlist";
 
 // getmovieID and request API to get full movie description
-const MovieDetail = ({ currentMovie, saveWatchList }) => {
+const MovieDetail = ({
+  currentMovie,
+  saveWatchList,
+  removeWatchList,
+  checkWatchList,
+}) => {
   const [movieInfo, setMovieInfo] = useState({});
   const [rating, setRating] = useState({});
-
 
   const getMovieDetailRequest = async (movieID) => {
     try {
@@ -75,17 +79,30 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
             {movieInfo.Actors}
           </Text>
         </Container>
-        {/* Save to watchlist */}
-        <Button
-          leftIcon={<ViewIcon />}
-          colorScheme="blue"
-          variant="outline"
-          onClick={() => saveWatchList(movieInfo)}
-          
-          p="20px 30px"
-        >
-          Watchlist
-        </Button>
+        {/* if the movie is already added it will display watchlist added and
+        if clicked it will remove the check list. Save watchlist and remove watchlist */}
+        {checkWatchList ? (
+          <Button
+            leftIcon={<ViewIcon />}
+            colorScheme="blue"
+            variant="outline"
+            onClick={() => saveWatchList(movieInfo)}
+            p="20px 30px"
+          >
+            Watchlist
+          </Button>
+        ) : (
+          <Button
+            leftIcon={<ViewOffIcon />}
+            colorScheme="blue"
+            variant="outline"
+            onClick={() => removeWatchList(movieInfo)}
+            p="20px 30px"
+          >
+            Watchlist Added
+          </Button>
+        )}
+
       </Flex>
       <Divider mt={5} mb={5} />
 
@@ -98,19 +115,19 @@ const MovieDetail = ({ currentMovie, saveWatchList }) => {
         {/* Rating */}
         {/* PrintArray */}
         <Flex w="100%">
-      {/* calculation to ensure that the rating system will dynamically 
+          {/* calculation to ensure that the rating system will dynamically 
       display middle base on number of source */}
-      {/* Inline css with calculate format */}
+          {/* Inline css with calculate format */}
           {rating.length > 0 ? (
             rating.map((data, index) => (
-              <Box style={{width:`calc(100%/${rating.length})`}} key={index}>
+              <Box style={{ width: `calc(100%/${rating.length})` }} key={index}>
                 <Center>{data.Value}</Center>
                 <Center>{data.Source}</Center>
               </Box>
             ))
           ) : (
             <Center>
-            <div>No rating</div>
+              <div>No rating</div>
             </Center>
           )}
         </Flex>
