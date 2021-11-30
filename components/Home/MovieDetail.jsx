@@ -14,12 +14,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import WatchList from "../../pages/watchlist";
 
 // getmovieID and request API to get full movie description
-const MovieDetail = ({
-  currentMovie,
-  saveWatchList,
-  removeWatchList,
-  checkWatchList,
-}) => {
+const MovieDetail = ({ currentMovie, saveWatchList, removeWatchList, watchList }) => {
   const [movieInfo, setMovieInfo] = useState({});
   const [rating, setRating] = useState({});
 
@@ -43,9 +38,9 @@ const MovieDetail = ({
     getMovieDetail();
   }, [currentMovie]);
 
-  if (!movieInfo) return <p>Loading</p>;
+  //checking if the current movie existed in the watchlist using some function
+  const watchListAdded = watchList.some((movieId) => movieId === currentMovie);
 
-  console.log("movieInfo", movieInfo);
 
   return (
     <div>
@@ -81,28 +76,28 @@ const MovieDetail = ({
         </Container>
         {/* if the movie is already added it will display watchlist added and
         if clicked it will remove the check list. Save watchlist and remove watchlist */}
-        {checkWatchList ? (
-          <Button
-            leftIcon={<ViewIcon />}
-            colorScheme="blue"
-            variant="outline"
-            onClick={() => saveWatchList(movieInfo)}
-            p="20px 30px"
-          >
-            Watchlist
-          </Button>
-        ) : (
+        {watchListAdded ? (
           <Button
             leftIcon={<ViewOffIcon />}
             colorScheme="blue"
             variant="outline"
-            onClick={() => removeWatchList(movieInfo)}
-            p="20px 30px"
+            onClick={() => removeWatchList(currentMovie)}
+            p="20px 50px"
           >
             Watchlist Added
           </Button>
+        ) : (
+          <Button
+            leftIcon={<ViewIcon />}
+            colorScheme="blue"
+            variant="outline"
+            onClick={() => saveWatchList(currentMovie)}
+            p="20px 30px"
+          >
+            Watchlist
+          </Button>
+          
         )}
-
       </Flex>
       <Divider mt={5} mb={5} />
 
