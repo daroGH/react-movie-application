@@ -12,7 +12,7 @@ export default function WatchList() {
   };
   // function to retrieve movieID from movieDetail when user press the watchlist button
   const handleWatchList = (movieId) => {
-    const newWatchListMovie = [...watchList,movieId]
+    const newWatchListMovie = [...watchList, movieId];
     setWatchList(newWatchListMovie);
   };
   return (
@@ -29,12 +29,6 @@ export default function WatchList() {
           </Box>
           <Box flex="1" w="100%">
             {/* Get movie detail and allow user to add into their watchlist */}
-            <Center>
-              <MovieDetail
-                currentMovie={currentMovieID}
-                saveWatchList={handleWatchList}
-              />
-            </Center>
           </Box>
         </Flex>
       </Box>
