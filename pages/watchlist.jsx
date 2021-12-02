@@ -6,6 +6,7 @@ import { Box, Stack, Flex, Spacer, Center, Divider } from "@chakra-ui/react";
 export default function WatchList() {
   const [watchList, setWatchList] = useState([]);
   const [currentMovieID, setCurrentMovieID] = useState("");
+  // TODO: useContext to get watchList value from movie Detail
   // function to retrieve from movieList for set to show detailß
   const handleOpenMovie = (movieId) => {
     setCurrentMovieID(movieId);

@@ -12,7 +12,7 @@ import Loading from "../components/Generic/Loading";
 //http://www.omdbapi.com/?s=star&apikey=263d22d8
 //API request by IMDB ID
 //http://www.omdbapi.com/?i=tt3896198&apikey=59ab01de
-
+//TODO: Mediaquery in css to allow the page adapt to the user's screen
 export default function Home() {
   //Declare a new state variable useState hook to store Movie database,
   //user Input and loading screen while user is prompting input
